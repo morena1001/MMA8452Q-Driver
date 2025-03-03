@@ -1,0 +1,6 @@
+../Core/Src/MMA8452Q.c:23:9:MMA8452Q_Init	1
+../Core/Src/MMA8452Q.c:31:19:MMA8452Q_Byte_Read	2
+../Core/Src/MMA8452Q.c:38:19:MMA8452Q_MultiByte_Read	2
+../Core/Src/MMA8452Q.c:45:19:MMA8452Q_Byte_Write	1
+../Core/Src/MMA8452Q.c:49:19:MMA8452Q_MultiByte_Write	1
+../Core/Src/MMA8452Q.c:57:9:Range_To_FS	5
