@@ -21,7 +21,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 
+#include "MMA8452Q.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,7 +47,11 @@ I2C_HandleTypeDef hi2c1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
+MMA8452Q_t dev;
+char message[50];
 
+char *lapo_s[4] = {"UP   ", "DOWN ", "RIGHT", "LEFT "};
+char *bafro_s[2] = {"FRONT", "BACK "};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,13 +100,19 @@ int main(void)
   MX_I2C1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  MMA8452Q_Init (&dev, &hi2c1);
+  HAL_Delay (50);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  MMA8452Q_ReadAccel (&dev);
+	  MMA8452Q_ReadOrientation (&dev);
+
+	  sprintf (message, "%.3f %.3f %.3f     %s     %s\r\n", dev.acc_g[0], dev.acc_g[1], dev.acc_g[2], lapo_s[dev.lapo], bafro_s[dev.bafro]);
+	  HAL_UART_Transmit (&huart2, (uint8_t *) message, 50, HAL_MAX_DELAY);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
